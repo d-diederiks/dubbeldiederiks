@@ -25,11 +25,11 @@
      CSS VARIABLES
   ============================================================ */
   :root {
-    --color-primary:     #6B8C3A;
-    --color-rose:        #C47A9A;
-    --color-amber:       #D4853A;
+    --color-primary:     #738d33;
+    --color-rose:        #C97D8E;
+    --color-amber:       #e78b2d;
     --color-burgundy:    #9B2335;
-    --color-steel:       #7A8FBF;
+    --color-steel:       #8197cd;
     --color-bg:          #F5F0E8;
     --color-ivory-dark:  #E8E0CE;
     --color-text:        #2E2A24;
@@ -45,14 +45,13 @@
      RESET & BASE
   ============================================================ */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
+  html, body { scroll-behavior: smooth; overflow-x: hidden; }
   body {
     font-family: var(--font-body);
     background: var(--color-bg);
     color: var(--color-text);
     font-size: 17px;
     line-height: 1.7;
-    overflow-x: hidden;
   }
   img { max-width: 100%; display: block; }
   a { color: inherit; text-decoration: none; }
@@ -247,6 +246,7 @@
   .countdown-grid {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: clamp(1.5rem, 4vw, 4rem);
     flex-wrap: wrap;
   }
@@ -276,8 +276,17 @@
     font-family: var(--font-heading);
     font-size: clamp(3rem, 8vw, 5rem);
     color: var(--color-rose);
-    align-self: flex-start;
+    align-self: center;
     margin-top: 0.1em;
+  }
+
+  @media (max-width: 460px) {
+    .countdown-grid { gap: 1rem; }
+    .countdown-number { font-size: clamp(2.5rem, 8vw, 4.5rem); }
+    .countdown-sep {
+      font-size: clamp(2rem, 8vw, 3.5rem);
+      margin-top: 0;
+    }
   }
   .countdown-married {
     padding: 3rem 1rem;
@@ -517,7 +526,7 @@
     cursor: pointer;
     transition: background 0.25s, transform 0.15s;
   }
-  .btn:hover { background: #5a7830; transform: translateY(-1px); }
+  .btn:hover { background: #738d33; transform: translateY(-1px); }
   .rsvp-deadline {
     margin-top: 1.2rem;
     font-size: 1rem;
