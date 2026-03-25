@@ -21,10 +21,10 @@
 :root {
   --rose: #C97D8E;
   --amber: #E78B2D;
-  --olive: #5d7522; /* Slightly darkened for better contrast */
+  --olive: #738d33;
   --periwinkle: #8197CD;
-  --cream: #f9f7f2; /* Lighter, more neutral cream from screenshot */
-  --sand: #f0e8d8;
+  --cream: #fdf5e8;
+  --sand: #efe6d4;
   --dark: #060605;
   --charcoal: #3d3b3a; /* Darker charcoal for legibility */
   --shadow: 0 8px 32px rgba(58, 46, 30, 0.08);
@@ -59,16 +59,27 @@ body{font-family:'Montserrat',Georgia,serif;background:var(--cream);color:var(--
   overflow: hidden;
   margin-top: 0;
   padding-top: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.hero-bg{opacity:0.22;pointer-events:none;line-height:0;overflow:hidden;}
+.hero-bg{
+  position: absolute;
+  inset: 0;
+  opacity: 0.22;
+  pointer-events: none;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
 .hero-bg img{
-  width:100%;
-  height:auto;
-  display:block;
-  mix-blend-mode:multiply;
-}
-@media(max-width:600px){
-  .hero-bg img{min-height:220px;object-fit:cover;}
+  width: 100%;
+  height: 100vh;
+  object-fit: contain;
+  object-position: center center;
+  display: block;
+  mix-blend-mode: multiply;
 }
 .hero-content{
   position:absolute;
@@ -76,9 +87,16 @@ body{font-family:'Montserrat',Georgia,serif;background:var(--cream);color:var(--
   transform:translate(-50%,-50%);
   z-index:2;
   text-align:center;
-  padding:2rem;
-  max-width:min(90vw, 1300px);
-  width:100%;
+  padding:2.5rem 3rem;
+  max-width:min(80vw, 900px);
+  width:fit-content;
+  min-width:min(60vw, 700px);
+  background:rgba(253,245,232,0.08);
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+  border-radius:20px;
+  border:1px solid rgba(253,245,232,0.12);
+  box-shadow:0 4px 32px rgba(58,46,30,0.03);
 }
 .hero-names{font-family:'Tenarife',serif;font-size:clamp(0.85rem,1.8vw,1.3rem);
   color:var(--olive);letter-spacing:0.22em;text-transform:uppercase;margin-bottom:1.1rem;
@@ -104,7 +122,7 @@ section{padding:4rem 1.5rem;}
   color:var(--rose);margin-bottom:1.5rem;display:block;margin-top:-0.45em;position:relative;z-index:1;}
 
 /* STORY */
-#story{background:var(--cream);padding-top:0;}
+#story{background:var(--cream);padding-top:0;padding-bottom:0;}
 .st-content{padding:0 1rem;}
 .st-editorial{display:grid;grid-template-columns:1fr 210px;gap:3rem 4.5rem;align-items:start;}
 .st-flora{width:210px;flex-shrink:0;padding-top:6.5rem;}
@@ -130,30 +148,42 @@ section{padding:4rem 1.5rem;}
 @keyframes scrollL{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
 
 /* BIG DAY */
-#bigday{background:var(--sand);}
+#bigday{background:var(--olive);padding-bottom:1.5rem;}
+#bigday .sh{color:var(--cream)}
+#bigday .ss{color:#fdf5e8;margin-top:0;}
 .bd-content{max-width:800px;margin:0 auto;text-align:center;}
-.bd-date{font-family:'Tenarife',serif;font-size:clamp(0.85rem,1.6vw,1.1rem);color:var(--olive);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:1rem;margin-top:0.3rem;}
-.bd-intro{font-size:0.92rem;line-height:1.85;margin:0 auto 2.5rem;max-width:460px;opacity:0.8;}
+.bd-date{font-family:'EyesomeScript',cursive;font-weight:normal;font-size:clamp(1.1rem,2vw,1.6rem);color:rgba(253,245,232,0.65);letter-spacing:0.04em;text-transform:none;margin-bottom:1rem;margin-top:-0.6rem;}
+.bd-intro{font-size:0.92rem;line-height:1.85;margin:0 auto 2.5rem;max-width:460px;color:#fdf5e8;opacity:0.8;}
 /* Grid timeline */
 .bd-grid{margin:0 0 1rem;}
 .bd-row{display:grid;grid-template-columns:repeat(3,1fr);position:relative;margin-bottom:2.8rem;}
-.bd-row::before{content:'';position:absolute;top:32px;left:16.67%;right:16.67%;height:1px;background:var(--charcoal);opacity:0.18;z-index:0;transform:translateZ(0);}
-.bd-row-final::before{right:50%;transform:translateZ(0);}
+.bd-row::before,.bd-row::after{content:'';position:absolute;top:32px;height:1px;background:rgba(253,245,232,0.3);z-index:0;transform:translateZ(0);}
+.bd-row::before{left:calc(16.67% + 44px);right:calc(50% + 44px);}
+.bd-row::after{left:calc(50% + 44px);right:calc(16.67% + 44px);}
+@media(max-width:600px){.bd-row::after{display:none;}}
 .bd-cell{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 0.4rem;position:relative;z-index:1;}
-.bd-cell-icon{width:64px;height:64px;display:flex;align-items:center;justify-content:center;color:var(--rose);background:var(--sand);border-radius:50%;margin-bottom:0.8rem;}
+.bd-cell-icon{width:64px;height:64px;display:flex;align-items:center;justify-content:center;color:#fdf5e8;background:rgba(253,245,232,0.12);border-radius:50%;margin-bottom:0.8rem;}
 .bd-cell-icon svg{width:52px;height:52px;}
-.bd-cell-time{font-family:'Tenarife',serif;font-size:1.05rem;color:var(--charcoal);letter-spacing:0.04em;line-height:1.2;}
-.bd-cell-label{font-family:'Montserrat',sans-serif;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--charcoal);opacity:0.6;margin-top:0.25rem;}
+.bd-cell-time{font-family:'Montserrat',sans-serif;font-size:1.05rem;color:#fdf5e8;letter-spacing:0.04em;line-height:1.2;}
+.bd-cell-label{font-family:'Montserrat',sans-serif;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.1em;color:#fdf5e8;opacity:0.6;margin-top:0.25rem;}
 .bd-cell-closer{justify-content:center;padding-top:0.6rem;}
-.bd-closer{font-family:'EyesomeScript',cursive;font-weight:normal;font-size:clamp(1.3rem,3vw,1.9rem);color:var(--rose);line-height:1.2;}
-.bd-closer-date{font-family:'Tenarife',serif;font-size:0.75rem;letter-spacing:0.16em;color:var(--charcoal);opacity:0.55;text-transform:uppercase;margin-top:0.35rem;}
+.bd-closer{font-family:'EyesomeScript',cursive;font-weight:normal;font-size:clamp(1.3rem,3vw,1.9rem);color:#fdf5e8;line-height:1.2;}
+.bd-closer-date{font-family:'Tenarife',serif;font-size:0.75rem;letter-spacing:0.16em;color:#fdf5e8;opacity:0.5;text-transform:uppercase;margin-top:0.35rem;}
 @media(max-width:600px){
   .bd-row{grid-template-columns:1fr;gap:1.4rem;margin-bottom:1.4rem;}
-  .bd-row::before{display:none;}
+  .bd-row::before,.bd-row::after{display:none;}
   .bd-cell-closer{padding-top:0;}
 }
-.bd-venue{display:flex;align-items:flex-start;justify-content:center;gap:0.5rem;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid rgba(58,46,30,0.12);font-size:0.83rem;line-height:1.9;text-align:center;color:var(--charcoal);}
-.bd-venue svg{flex-shrink:0;margin-top:3px;color:var(--rose);}
+.bd-venue{display:flex;align-items:flex-start;justify-content:center;gap:0.5rem;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid rgba(253,245,232,0.2);font-size:0.83rem;line-height:1.9;text-align:center;color:#fdf5e8;}
+.bd-venue svg{flex-shrink:0;margin-top:3px;color:#fdf5e8;}
+/* DRESS CODE */
+.dc-wrap{border-top:1px solid rgba(253,245,232,0.2);margin-top:0.5rem;padding-top:2.5rem;text-align:center;}
+.dc-label{font-family:'Tenarife',serif;text-transform:uppercase;letter-spacing:0.22em;font-size:0.72rem;color:rgba(253,245,232,0.55);margin-bottom:2.2rem;display:block;}
+.dc-item{margin-bottom:2rem;}
+.dc-item:last-of-type{margin-bottom:0;}
+.dc-subhead{font-family:'Tenarife',serif;text-transform:uppercase;letter-spacing:0.14em;font-size:0.8rem;color:rgba(253,245,232,0.9);margin-bottom:0.6rem;display:block;}
+.dc-body{font-family:'Montserrat',sans-serif;font-size:0.9rem;line-height:1.85;color:rgba(253,245,232,0.75);max-width:620px;margin:0 auto;}
+
 
 /* TIMELINE */
 #timeline{background:var(--cream);}
@@ -189,7 +219,7 @@ section{padding:4rem 1.5rem;}
 .fi{width:100%;padding:0.9rem 1.2rem;border:1.5px solid #ddd4c0;border-radius:6px;
   font-family:'Montserrat',sans-serif;font-size:0.97rem;background:var(--cream);color:var(--charcoal);
   transition:border-color 0.2s,box-shadow 0.2s;outline:none;}
-.fi:focus{border-color:var(--olive);box-shadow:0 0 0 3px rgba(93,117,34,0.08);}
+.fi:focus{border-color:var(--olive);box-shadow:0 0 0 3px rgba(115,141,51,0.08);}
 .fta{resize:vertical;min-height:110px;}
 .rg{display:flex;gap:1rem;}
 .ro{flex:1;position:relative;}
@@ -202,7 +232,7 @@ section{padding:4rem 1.5rem;}
 .sb{width:100%;padding:1.1rem 2rem;background:var(--olive);color:var(--cream);
   font-family:'Tenarife',serif;font-size:1.4rem;border:none;border-radius:8px;
   cursor:pointer;letter-spacing:0.06em;transition:background 0.2s,transform 0.15s;margin-top:0.5rem;}
-.sb:hover{background:#5a6e26;transform:translateY(-2px);}
+.sb:hover{background:#607a2b;transform:translateY(-2px);}
 .fn{font-size:0.76rem;color:#aaa;text-align:center;margin-top:0.9rem;}
 .rs-success{display:none;text-align:center;padding:2rem 0;}
 .rs-success.show{display:block;}
@@ -225,15 +255,15 @@ section{padding:4rem 1.5rem;}
 .al-desc{font-family:'Montserrat',sans-serif;font-size:0.9rem;color:var(--charcoal);line-height:1.4;}
 @media(max-width:600px){.aerial-legend{grid-template-columns:1fr;}}
 .ac{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.4rem;margin:2rem 0;}
-.acard{background:white;border-radius:var(--radius);padding:1.8rem;box-shadow:var(--shadow);
+.acard{background:#fdf5e8;border-radius:var(--radius);padding:1.8rem;box-shadow:var(--shadow);
   text-align:center;transition:transform 0.2s;}
 .acard:hover{transform:translateY(-4px);}
 .an{font-family:'Tenarife',serif;font-size:1.25rem;margin-bottom:0.4rem;}
 .ap{font-size:1.5rem;font-weight:700;color:var(--olive);}
 .au{font-size:0.78rem;color:#aaa;}
-.anote{background:#f5f0e6;border-radius:10px;padding:1rem 1.4rem;margin:0.5rem 0;
+.anote{background:#fdf5e8;border-radius:10px;padding:1rem 1.4rem;margin:0.5rem 0;
   font-size:0.9rem;line-height:1.6;}
-.bk{background:white;border-radius:var(--radius);padding:2rem;box-shadow:var(--shadow);
+.bk{background:#fdf5e8;border-radius:var(--radius);padding:2rem;box-shadow:var(--shadow);
   margin-top:2rem;border-left:4px solid var(--olive);}
 .bk h3{font-family:'Tenarife',serif;font-size:1.25rem;margin-bottom:0.9rem;}
 .cr{display:flex;align-items:center;gap:0.8rem;margin-bottom:0.6rem;font-size:0.93rem;}
@@ -262,7 +292,7 @@ section{padding:4rem 1.5rem;}
 .mb{display:inline-block;padding:0.72rem 2rem;background:var(--olive);color:var(--cream);
   font-family:'Tenarife',serif;font-size:1.1rem;text-decoration:none;border-radius:10px;
   letter-spacing:0.04em;transition:background 0.2s,transform 0.15s;}
-.mb:hover{background:#5a6e26;transform:translateY(-2px);}
+.mb:hover{background:#607a2b;transform:translateY(-2px);}
 
 /* REGISTRY */
 #registry{background:var(--sand);}
@@ -275,7 +305,7 @@ section{padding:4rem 1.5rem;}
 .rn{font-family:'Tenarife',serif;font-size:1.2rem;margin-bottom:0.9rem;}
 .vl{display:inline-block;padding:0.45rem 1.1rem;background:var(--olive);color:var(--cream);
   font-size:0.83rem;text-decoration:none;border-radius:8px;transition:background 0.2s;}
-.vl:hover{background:#5a6e26;}
+.vl:hover{background:#607a2b;}
 .cg{background:var(--cream);border-radius:var(--radius);padding:2rem;
   box-shadow:var(--shadow);border-left:4px solid var(--amber);}
 .cg h3{font-family:'Tenarife',serif;font-size:1.25rem;margin-bottom:0.9rem;}
@@ -317,19 +347,135 @@ footer{background:var(--cream);color:rgba(61,59,58,0.65);text-align:center;paddi
 <section id="hero">
   <div class="hero-bg"><img src="hero2.svg" alt=""></div>
   <div class="hero-content">
-    <h1 class="hero-title">and so the adventure<br>continues</h1>
+    <h1 class="hero-title">and so the<br>adventure continues</h1>
     <p class="hero-countdown">2 – 4 October 2026 &nbsp;·&nbsp; <span id="dcount">calculating...</span></p>
   </div>
 </section>
 
-<!-- OUR STORY -->
+<!-- WELCOME NOTE -->
+<section id="welcome" style="background:var(--cream);padding-top:5rem;padding-bottom:0;position:relative;z-index:1;">
+  <div class="si" style="max-width:680px;text-align:left;">
+    <p style="font-family:'EyesomeScript',cursive;font-size:clamp(1.4rem,3vw,2rem);color:var(--olive);line-height:1.5;margin-bottom:0.6rem;margin-top: -15%;">Dear family &amp; friends,</p>
+    <p style="font-size:0.97rem;line-height:1.95;color:var(--charcoal);opacity:0.85;margin-bottom:1.4rem;">We are beyond excited to have <em>you</em> at our wedding weekend amongst the beautiful Robertson mountains. Please come and join us for a weekend of celebrations, love and laughter.</p>
+    <p style="font-size:0.97rem;line-height:1.95;color:var(--charcoal);opacity:0.85;margin-bottom:1.6rem;">All the details to the weekend&#8217;s festivities (timelines, dress codes, accommodation etc.) are on this site.</p>
+    <p style="font-family:'Montserrat',sans-serif;font-size:clamp(0.85rem,1.8vw,1rem);color:var(--charcoal);line-height:1.6;text-align:right;">Lots of love x<br><span style="font-family:'Montserrat',sans-serif;font-size:clamp(0.85rem,1.8vw,1rem);color:var(--charcoal);">Damion &amp; Isabel</span></p>
+  </div>
+</section>
+
+<div class="wave" style="background:var(--cream)"><svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,20 C300,80 600,0 900,55 C1080,75 1260,15 1440,35 L1440,80 L0,80 Z" fill="var(--olive)"/></svg></div>
+
+
+<!-- THE BIG DAY -->
+<section id="bigday" style="background:var(--olive);">
+  <div class="si">
+    <div class="bd-content">
+        <h2 class="sh" style="text-align:center;">The Big Day</h2>
+        <p class="bd-date">Saturday · 3 October 2026</p>
+        <p class="bd-intro">Everything unfolds at Pat Busch Mountain Reserve — ceremony, canapés, and reception all in one magical mountain setting.</p>
+        <div class="bd-grid">
+
+          <!-- Row 1 -->
+          <div class="bd-row">
+
+            <!-- Welcome Drinks -->
+            <div class="bd-cell">
+              <div class="bd-cell-icon">
+                <img src="Canapes.webp" alt="" style="width:52px;height:52px;object-fit:contain;filter:brightness(0) invert(1) opacity(0.9);">
+              </div>
+              <div class="bd-cell-time">3:00 PM</div>
+              <div class="bd-cell-label">Welcome Drinks</div>
+            </div>
+
+            <!-- Ceremony -->
+            <div class="bd-cell">
+              <div class="bd-cell-icon">
+                <img src="Ceremony.webp" alt="" style="width:52px;height:52px;object-fit:contain;filter:brightness(0) invert(1) opacity(0.9);">
+              </div>
+              <div class="bd-cell-time">3:30 PM</div>
+              <div class="bd-cell-label">Ceremony</div>
+            </div>
+
+            <!-- Group Photos -->
+            <div class="bd-cell">
+              <div class="bd-cell-icon">
+                <img src="GroupPhotos.webp" alt="" style="width:52px;height:52px;object-fit:contain;filter:brightness(0) invert(1) opacity(0.9);">
+              </div>
+              <div class="bd-cell-time">4:00 PM</div>
+              <div class="bd-cell-label">Group Photos</div>
+            </div>
+
+          </div><!-- /row 1 -->
+
+          <!-- Row 2 -->
+          <div class="bd-row">
+
+            <!-- Canapés & Drinks -->
+            <div class="bd-cell">
+              <div class="bd-cell-icon">
+                <img src="welcome.png" alt="" style="width:52px;height:52px;object-fit:contain;filter:brightness(0) invert(1) opacity(0.9);">
+              </div>
+              <div class="bd-cell-time">4:30 PM</div>
+              <div class="bd-cell-label">Canapés &amp; Drinks</div>
+            </div>
+
+            <!-- Reception & Dinner -->
+            <div class="bd-cell">
+              <div class="bd-cell-icon">
+                <img src="Dinner.webp" alt="" style="width:52px;height:52px;object-fit:contain;filter:brightness(0) invert(1) opacity(0.9);">
+              </div>
+              <div class="bd-cell-time">6:00 PM</div>
+              <div class="bd-cell-label">Reception &amp; Dinner</div>
+            </div>
+
+            <!-- Dancing & Party -->
+            <div class="bd-cell">
+              <div class="bd-cell-icon">
+                <img src="Party.webp" alt="" style="width:52px;height:52px;object-fit:contain;filter:brightness(0) invert(1) opacity(0.9);">
+              </div>
+              <div class="bd-cell-time">8:00 PM</div>
+              <div class="bd-cell-label">Party</div>
+            </div>
+
+
+          </div><!-- /row 2 -->
+
+        </div><!-- /bd-grid -->
+
+        <!-- DRESS CODE -->
+        <div class="dc-wrap">
+          <span class="dc-label">Dress Code</span>
+
+          <div class="dc-item">
+            <span class="dc-subhead">Garden Formal</span>
+            <p class="dc-body">Our wedding will take place in the mountains of Robertson — think Mediterranean meets Cape Winelands. Timeless, relaxed and a little romantic. We recommend earthy tones, soft pastels and natural fabrics. Any colours are welcome — yes, including black! — but please avoid white or ivory so the focus stays on the bride.</p>
+          </div>
+
+          <div class="dc-item">
+            <span class="dc-subhead">Footwear</span>
+            <p class="dc-body">The ceremony and reception will take place on lawns and uneven mountain terrain, so we recommend block heels, wedges, or smart flats over stilettos or thin heels to keep you comfortable.</p>
+          </div>
+
+          <div class="dc-item">
+            <span class="dc-subhead">Sun &amp; Weather</span>
+            <p class="dc-body">October in Robertson is warm and sunny — highs around 28°C. The ceremony is outdoors, so please wear sunscreen and bring a light layer for the evening when the mountain air cools down.</p>
+          </div>
+
+        </div><!-- /dc-wrap -->
+
+      </div>
+    </div>
+</section>
+
+<div class="wave" style="background:var(--olive)"><svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,55 C180,10 400,75 600,25 C800,0 1000,65 1200,20 C1320,5 1400,55 1440,40 L1440,80 L0,80 Z" fill="var(--cream)"/></svg></div>
+
+<!-- OUR STORY (moved below bigday) -->
 <section id="story">
   <div class="si">
     <div class="st-content">
       <div class="st-editorial">
 
         <!-- Left: text -->
-        <div class="st-text" style="margin-top: -10%;">
+        <div class="st-text" >
           <h2 class="sh">Our Lovestory</h2>
           <span class="ss">almost a decade later and it&#39;s just the beginning</span>
           <!-- Botanical flourish divider -->
@@ -422,92 +568,6 @@ footer{background:var(--cream);color:rgba(61,59,58,0.65);text-align:center;paddi
       </div>
     </div>
 </section>
-
-<div class="wave" style="background:var(--cream)"><svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,20 C300,80 600,0 900,55 C1080,75 1260,15 1440,35 L1440,80 L0,80 Z" fill="var(--sand)"/></svg></div>
-
-<!-- THE BIG DAY -->
-<section id="bigday" style="background:var(--sand);">
-  <div class="si">
-    <div class="bd-content">
-        <h2 class="sh" style="text-align:center;">The Big</h2>
-        <span class="ss" style="font-size:clamp(2rem,5vw,3.5rem);">Day</span>
-        <p class="bd-date">Saturday · 3 October 2026</p>
-        <p class="bd-intro">Everything unfolds at Pat Busch Mountain Reserve — ceremony, canapés, and reception all in one magical mountain setting.</p>
-        <div class="bd-grid">
-
-          <!-- Row 1 -->
-          <div class="bd-row">
-
-            <!-- Ceremony -->
-            <div class="bd-cell">
-              <div class="bd-cell-icon">
-                <img src="Ceremony.webp" alt="" style="width:52px;height:52px;object-fit:contain;mix-blend-mode:multiply;">
-              </div>
-              <div class="bd-cell-time">3:30 PM</div>
-              <div class="bd-cell-label">Ceremony</div>
-            </div>
-
-            <!-- Group Photos -->
-            <div class="bd-cell">
-              <div class="bd-cell-icon">
-                <img src="GroupPhotos.webp" alt="" style="width:52px;height:52px;object-fit:contain;mix-blend-mode:multiply;">
-              </div>
-              <div class="bd-cell-time">4:00 PM</div>
-              <div class="bd-cell-label">Group Photos</div>
-            </div>
-
-            <!-- Canapés & Drinks -->
-            <div class="bd-cell">
-              <div class="bd-cell-icon">
-                <img src="Canapes.webp" alt="" style="width:52px;height:52px;object-fit:contain;mix-blend-mode:multiply;">
-              </div>
-              <div class="bd-cell-time">4:30 PM</div>
-              <div class="bd-cell-label">Canapés &amp; Drinks</div>
-            </div>
-
-          </div><!-- /row 1 -->
-
-          <!-- Row 2 -->
-          <div class="bd-row bd-row-final">
-
-            <!-- Reception & Dinner -->
-            <div class="bd-cell">
-              <div class="bd-cell-icon">
-                <img src="Dinner.webp" alt="" style="width:52px;height:52px;object-fit:contain;mix-blend-mode:multiply;">
-              </div>
-              <div class="bd-cell-time">6:00 PM</div>
-              <div class="bd-cell-label">Reception &amp; Dinner</div>
-            </div>
-
-            <!-- Dancing & Party -->
-            <div class="bd-cell">
-              <div class="bd-cell-icon">
-                <img src="Party.webp" alt="" style="width:48px;height:62px;object-fit:contain;mix-blend-mode:multiply;">
-              </div>
-              <div class="bd-cell-time">8:00 PM</div>
-              <div class="bd-cell-label">Dancing &amp; Party</div>
-            </div>
-
-            <!-- Decorative closer -->
-            <div class="bd-cell bd-cell-closer">
-              <div class="bd-closer">Damion &amp; Isabel</div>
-              <div class="bd-closer-date">3 October 2026</div>
-            </div>
-
-          </div><!-- /row 2 -->
-
-        </div><!-- /bd-grid -->
-        <div class="bd-venue">
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-            <path d="M12 21C12 21 5 14 5 9a7 7 0 0114 0c0 5-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/>
-          </svg>
-          <span>Pat Busch Mountain Reserve<br>R60, Robertson, 6705, Western Cape</span>
-        </div>
-      </div>
-    </div>
-</section>
-
-<div class="wave" style="background:var(--sand)"><svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,55 C180,10 400,75 600,25 C800,0 1000,65 1200,20 C1320,5 1400,55 1440,40 L1440,80 L0,80 Z" fill="var(--cream)"/></svg></div>
 
 <!-- THE WEEKEND -->
 <section id="timeline" style="background:var(--cream);">
@@ -713,7 +773,7 @@ function doRSVP() {
   if (yes) {
     // Confetti burst
     var end = Date.now() + 2500;
-    var colors = ['#C97D8E','#E78B2D','#5d7522','#8197CD','#f9f7f2'];
+    var colors = ['#C97D8E','#E78B2D','#738d33','#8197CD','#fdf5e8'];
     (function burst() {
       confetti({ particleCount: 7, angle: 60, spread: 55, origin: { x: 0 }, colors: colors });
       confetti({ particleCount: 7, angle: 120, spread: 55, origin: { x: 1 }, colors: colors });
