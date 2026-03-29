@@ -31,6 +31,7 @@
   --radius: 16px;
 }
 html{scroll-behavior:smooth;}
+html{overflow-x:hidden;}
 body{font-family:'Montserrat',Georgia,serif;background:var(--cream);color:var(--charcoal);overflow-x:hidden;margin:0;padding:0;}
 
 /* NAV */
@@ -117,8 +118,8 @@ body{font-family:'Montserrat',Georgia,serif;background:var(--cream);color:var(--
 section{padding:4rem 1.5rem;}
 .si{max-width:900px;margin:0 auto;}
 .sh{font-family:'Tenarife',serif;font-size:clamp(2rem,5vw,3.2rem);color:var(--charcoal);
-  text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0;position:relative;z-index:0;}
-.ss{font-family:'EyesomeScript',cursive;font-weight:normal;font-size:clamp(1.3rem,3vw,1.9rem);
+  text-transform:uppercase;letter-spacing:0.18em;margin-bottom:0;position:relative;z-index:0;}
+.ss{font-family:'EyesomeScript',cursive;font-weight:normal;font-size:clamp(2rem,4.5vw,3.2rem);
   color:var(--rose);margin-bottom:1.5rem;display:block;margin-top:-0.45em;position:relative;z-index:1;}
 
 /* STORY */
@@ -136,8 +137,10 @@ section{padding:4rem 1.5rem;}
   .st-flora{display:none;}
 }
 .carousel-wrap{overflow:hidden;margin:2.5rem -1.5rem 0;}
-.carousel-track{display:flex;gap:1.2rem;padding:1rem 1.5rem;
-  animation:scrollL 80s linear infinite;width:max-content;}
+.carousel-track{display:flex;padding:1rem 0;
+  animation:scrollL 180s linear infinite;width:max-content;
+  will-change:transform;backface-visibility:hidden;transform:translateZ(0);}
+.carousel-track .photo-card{margin-right:1.2rem;}
 .carousel-track:hover{animation-play-state:paused;}
 .photo-card{width:230px;height:290px;flex-shrink:0;overflow:hidden;
   background:linear-gradient(135deg,#ede4d8,#d8ccbc);border-radius:12px;
@@ -152,7 +155,7 @@ section{padding:4rem 1.5rem;}
 #bigday .sh{color:var(--cream)}
 #bigday .ss{color:#fdf5e8;margin-top:0;}
 .bd-content{max-width:800px;margin:0 auto;text-align:center;}
-.bd-date{font-family:'EyesomeScript',cursive;font-weight:normal;font-size:clamp(1.1rem,2vw,1.6rem);color:rgba(253,245,232,0.65);letter-spacing:0.04em;text-transform:none;margin-bottom:1rem;margin-top:-0.6rem;}
+.bd-date{font-family:'EyesomeScript',cursive;font-weight:normal;font-size:clamp(2rem,4.5vw,3.2rem);color:rgba(253,245,232,0.65);letter-spacing:0.04em;text-transform:none;margin-bottom:1rem;margin-top:-0.6rem;}
 .bd-intro{font-size:0.92rem;line-height:1.85;margin:0 auto 2.5rem;max-width:460px;color:#fdf5e8;opacity:0.8;}
 /* Grid timeline */
 .bd-grid{margin:0 0 1rem;}
@@ -178,7 +181,7 @@ section{padding:4rem 1.5rem;}
 .bd-venue svg{flex-shrink:0;margin-top:3px;color:#fdf5e8;}
 /* DRESS CODE */
 .dc-wrap{border-top:1px solid rgba(253,245,232,0.2);margin-top:1.5rem;padding-top:1.5rem;padding-bottom:1rem;text-align:center;}
-.dc-label{font-family:'EyesomeScript',cursive;font-weight:normal;font-size:clamp(1.1rem,2vw,1.6rem);color:rgba(253,245,232,0.65);letter-spacing:0.04em;text-transform:none;margin-bottom:1rem;display:block;}
+.dc-label{font-family:'EyesomeScript',cursive;font-weight:normal;font-size:clamp(2rem,4.5vw,3.2rem);color:rgba(253,245,232,0.65);letter-spacing:0.04em;text-transform:none;margin-bottom:1rem;display:block;}
 .dc-item{margin-bottom:0.9rem;}
 .dc-item:last-of-type{margin-bottom:0;}
 .dc-body{font-family:'Montserrat',sans-serif;font-size:0.9rem;line-height:1.85;color:rgba(253,245,232,0.85);max-width:620px;margin:0 auto;}
@@ -209,8 +212,10 @@ section{padding:4rem 1.5rem;}
 #rsvp{background:var(--cream);}
 .rsvp-layout{display:grid;grid-template-columns:1fr 1.15fr;gap:5rem;align-items:start;}
 .rsvp-copy{padding-top:0.5rem;}
-.rsvp-copy .sh{margin-bottom:0;}
-.rsvp-copy .ss{display:block;margin-top:-0.45em;margin-bottom:1.4rem;}
+.rsvp-copy .sh{margin-bottom:0;white-space:nowrap;}
+.rsvp-copy .ss{display:block;margin-top:-0.45em;margin-bottom:1.4rem;white-space:nowrap;}
+.rsvp-break{display:none;}
+@media(max-width:600px){.rsvp-break{display:inline;}.rsvp-copy .ss{white-space:normal;}}
 .rsvp-invite{font-size:0.97rem;line-height:1.9;color:var(--charcoal);opacity:0.75;margin-top:0.5rem;}
 .rsvp-divider{width:48px;height:1px;background:var(--rose);opacity:0.4;margin:1.8rem 0;}
 .rf{padding:0;}
@@ -329,10 +334,18 @@ section{padding:4rem 1.5rem;}
 .vl{display:inline-block;padding:0.45rem 1.1rem;background:var(--olive);color:var(--cream);
   font-size:0.83rem;text-decoration:none;border-radius:8px;transition:background 0.2s;}
 .vl:hover{background:#607a2b;}
-.cg{background:var(--cream);border-radius:var(--radius);padding:2rem;
-  box-shadow:var(--shadow);border-left:4px solid var(--amber);}
+.cg{background:rgba(253,245,232,0.45);border-radius:20px;padding:2rem;
+  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+  border:none;position:relative;overflow:visible;
+  box-shadow:0 4px 32px rgba(58,46,30,0.06);}
+.glasses-mobile{display:none;}.glasses-mobile-inline{display:none;}
+.cg-wave-svg{position:absolute;pointer-events:none;display:block;overflow:visible;}
+.cg-wave-svg.top{top:-8px;left:0;width:100%;height:16px;}
+.cg-wave-svg.bottom{bottom:-8px;left:0;width:100%;height:16px;}
+.cg-wave-svg.left{left:-8px;top:0;width:16px;height:100%;}
+.cg-wave-svg.right{right:-8px;top:0;width:16px;height:100%;}
 .cg h3{font-family:'Tenarife',serif;font-size:1.25rem;margin-bottom:0.9rem;}
-.bd2{font-size:0.9rem;line-height:2;}
+.bd2{font-size:0.9rem;line-height:1.4;}
 
 /* WEDDING RIBBON */
 
@@ -343,12 +356,18 @@ footer{background:var(--olive);color:var(--cream);text-align:center;padding:3rem
   color:var(--cream);text-transform:uppercase;}
 
 @media(max-width:600px){
-  section{padding:2.5rem 1rem;position:relative;z-index:auto;margin-top:-3px;padding-top:calc(2.5rem + 3px);}
+  section{padding:2.5rem 1rem;position:relative;z-index:0;}
   .tl{grid-template-columns:1fr;}
   .rg{flex-direction:column;}
   .sw div{width:42px;height:42px;}
-  .wave{display:block;overflow:visible;}
-  .wave svg{display:block;margin-bottom:-3px;}
+  .wave{display:block;overflow:visible;position:relative;z-index:1;margin-top:-6px;}
+  .wave svg{display:block;width:100%;height:calc(100% + 6px);}
+  .rsvp-copy .sh{white-space:normal;}
+  .rsvp-copy .ss{white-space:normal;}
+  .carousel-wrap{overflow:hidden;}
+  .glasses-mobile-inline{display:inline;}
+  .glasses-mobile-inline img{height:1.3em!important;}
+  .glasses-desktop{display:none!important;}
 }
 @media(max-width:600px){
   #hero {
@@ -418,7 +437,7 @@ footer{background:var(--olive);color:var(--cream);text-align:center;padding:3rem
 <!-- WELCOME NOTE -->
 <section id="welcome" style="background:var(--cream);padding-top:5rem;padding-bottom:0;position:relative;z-index:1;">
   <div class="si" style="max-width:680px;text-align:left;">
-    <p style="font-family:'EyesomeScript',cursive;font-size:clamp(1.4rem,3vw,2rem);color:var(--rose);line-height:1.5;margin-bottom:0.6rem;margin-top: -15%;">Dear family and friends,</p>
+    <p style="font-family:'EyesomeScript',cursive;font-size:clamp(2rem,4.5vw,3.2rem);color:var(--rose);line-height:1.5;margin-bottom:0.6rem;margin-top: -15%;">Dear family and friends,</p>
     <p style="font-size:0.97rem;line-height:1.95;color:var(--charcoal);opacity:0.85;margin-bottom:1.4rem;">We are beyond excited to have <em>YOU</em> at our wedding weekend amongst the beautiful Robertson mountains. Please join us for a weekend of celebrations, love and laughter.</p>
     <p style="font-size:0.97rem;line-height:1.95;color:var(--charcoal);opacity:0.85;margin-bottom:1.4rem;">We have created this space to share all the details for the weekend &#8211; everything from the schedule, dress code, accommodation and more.</p>
     <p style="font-size:0.97rem;line-height:1.95;color:var(--charcoal);opacity:0.85;margin-bottom:1.6rem;">Thank you so much for being part of our story. We cannot wait to celebrate with you!</p>
@@ -438,7 +457,7 @@ footer{background:var(--olive);color:var(--cream);text-align:center;padding:3rem
     <div class="bd-content">
         <h2 class="sh" style="text-align:center;">The Big Day</h2>
         <p class="bd-date">Saturday · 3 October 2026</p>
-        <p class="bd-intro">On the 3rd of October 2026, exactly 9 and a half years after starting this adventure, we will tie the knot under the big oak tree, surrounded by the people we love most.</p>
+        <p class="bd-intro">After exactly 9 and a half years of this adventure, we will tie the knot under the big oak tree, surrounded by the people we love most.</p>
         <div class="bd-grid">
 
           <!-- Row 1 -->
@@ -506,6 +525,8 @@ footer{background:var(--olive);color:var(--cream);text-align:center;padding:3rem
 
           </div><!-- /row 2 -->
 
+          <p style="font-family:'Montserrat',sans-serif;font-size:0.6rem;font-weight:600;letter-spacing:0.28em;text-transform:uppercase;color:rgba(253,245,232,0.55);margin-top:-1rem;margin-bottom:0;">Times are an estimate for now and will be confirmed closer to the time.</p>
+
         </div><!-- /bd-grid -->
 
         <!-- DRESS CODE -->
@@ -554,7 +575,7 @@ footer{background:var(--olive);color:var(--cream);text-align:center;padding:3rem
           <p class="st-p">At the beginning of grade 12, we went on the grade 8 camp together and of course, Dams convinced Izak to swop with him so we could have a group of &#8220;graad aggies&#8221; together. Again, wherever Dams was, you could be sure to find me there too. Shortly after that we signed up to be &#8220;geesvang&#8221; leaders together. It is during these days that our secret code #VWLW came to be.</p>
           <p class="st-p">Looking back, we were fiercely in love by this point &#8230; only we had <em>no idea</em>! I mean it&#8217;s perfectly normal for <span class="st-highlight">&#8220;just friends&#8221;</span> to talk over the phone (sometimes for hours) each night, right?</p>
           <p class="st-p">The most special &#8220;aha&#8221; moment came on 4 March 2017, and by 3 April 2017 it was official. &#10084;</p>
-          <p class="st-p">What followed was the most special journey. Two rounds of long distance, rotating between our parents&#8217; houses during Covid, moving back to Pretoria, moving to Cape Town &#8230; we grew up together.</p>
+          <p class="st-p">We have had the privilege of growing up together. We finished matric together, endured Isabel&#8217;s exchange to Denmark, had the excitement of being young students in Pretoria, rotated between our parents&#8217; houses for more than a year during Covid, had another 2 years of long distance when Dams moved to Cape Town &#8230; it&#8217;s been a journey.</p>
           <p class="st-p">On the 18th of December 2024 Dams got down on one knee, nearly giving me a heart attack, and now here we are, ready to start this next chapter, with all our loved ones by our side.</p>
         </div>
 
@@ -648,7 +669,7 @@ footer{background:var(--olive);color:var(--cream);text-align:center;padding:3rem
 <!-- THE WEEKEND -->
 <section id="timeline" style="background:var(--olive);">
   <div class="si">
-    <h2 class="sh" style="position:relative;">The Rest of the Weekend <span style="display:inline-block;width:0;height:0;overflow:visible;vertical-align:middle;"><img src="glasses-red.png" alt="" style="height:3em;display:block;transform:translateY(-50%);mix-blend-mode:multiply;position:relative;left:0.4rem;"></span></h2>
+    <h2 class="sh" style="position:relative;">The Rest of the <span class="glasses-mobile-inline"><img src="glasses-red.png" alt="" style="height:0.85em;vertical-align:middle;display:inline;"></span>Weekend <span class="glasses-desktop" style="display:inline-block;width:0;height:0;overflow:visible;vertical-align:middle;"><img src="glasses-red.png" alt="" style="height:3em;display:block;transform:translateY(-50%);mix-blend-mode:multiply;position:relative;left:0.4rem;"></span></h2>
     <span class="ss">before &amp; after the big day</span>
     <p style="font-size:0.97rem;line-height:1.95;color:rgba(253,245,232,0.85);margin-bottom:1.8rem;">We&#8217;ll start the weekend off with an informal, relaxed braai at Huis Erika and have a festive weekend together. Feel free to bring some swimming costumes, trail tekkies &#8230; or if that&#8217;s not your vibe, there are some lovely wine spots around as well.</p>
     <div class="tl">
@@ -691,7 +712,6 @@ footer{background:var(--olive);color:var(--cream);text-align:center;padding:3rem
   <div class="si">
     <h2 class="sh">Map of the Reserve</h2>
     <span class="ss">find your way around</span>
-    <p style="margin-bottom:1.5rem;line-height:1.85;">Everything takes place at Pat Busch Mountain Reserve. Use the aerial view below to get your bearings — from the ceremony lawn to your accommodation and the reception venue.</p>
     <div style="margin-top:2.5rem;">
       <div class="aerial-wrap">
         <img src="Aerial.png" alt="Aerial view of Pat Busch Mountain Reserve">
@@ -717,6 +737,12 @@ footer{background:var(--olive);color:var(--cream);text-align:center;padding:3rem
   <div class="si">
     <h2 class="sh">Accommodation</h2>
     <span class="ss">all under one roof</span>
+          <svg viewBox="0 0 180 26" width="180" height="26" fill="none" stroke="#FDF5E8" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block;margin:0.6rem 0 1.5rem;">
+            <path d="M4 13 C28 7 52 19 90 13 C128 7 152 19 176 13"/>
+            <path d="M34 12 C32 7 29 4 34 2 C39 4 36 8 34 12"/>
+            <path d="M90 13 C88 8 85 5 90 3 C95 5 92 9 90 13"/>
+            <path d="M146 12 C144 7 141 4 146 2 C151 4 148 8 146 12"/>
+          </svg>
     <p style="margin-bottom:1.5rem;line-height:1.85;">We feel so incredibly lucky to be celebrating this special weekend with you! To make it truly special and to have all our favourite people together in one place, we&#8217;ve reserved the entire Pat Busch Mountain Reserve for our wedding, and all guests will be staying on site with us for the weekend.</p>
     <p style="margin-bottom:1.5rem;line-height:1.85;">We&#8217;ve thoughtfully allocated accommodation for each guest, and will be in touch with your specific details and cost. The cost will cover your stay, a relaxed braai together on Friday evening, breakfast on both Saturday and Sunday, as well as the wedding celebration and drinks. Little ones in Grade 6 and younger stay free &#8212; we love them and can&#8217;t imagine the weekend without them! 🤍</p>
 
@@ -736,9 +762,8 @@ footer{background:var(--olive);color:var(--cream);text-align:center;padding:3rem
 
       <!-- Left: editorial copy -->
       <div class="rsvp-copy">
-        <h2 class="sh">Will You Join Us?</h2>
-        <span class="ss">Kindly RSVP by 31 July 2026</span>
-        <div class="rsvp-divider"></div>
+        <h2 class="sh">We Hope You Will Join Us</h2>
+        <span class="ss">Kindly RSVP by<span class="rsvp-break"><br></span> 31 July 2026</span>
         <p class="rsvp-invite">We'd love to know you're coming — please RSVP for each guest individually.</p>
       </div>
 
@@ -760,6 +785,14 @@ footer{background:var(--olive);color:var(--cream);text-align:center;padding:3rem
 
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
+          Where is the wedding weekend taking place?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">The whole weekend's festivities will take place at Pat Busch Mountain Reserve in Robertson.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
           Can I bring a plus one?
           <span class="faq-icon">+</span>
         </button>
@@ -768,26 +801,18 @@ footer{background:var(--olive);color:var(--cream);text-align:center;padding:3rem
 
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
-          Are children welcome?
+          What about kids?
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a"><div class="faq-a-inner">Absolutely — please bring your kids to celebrate with us! Children in Grade 6 and younger stay completely free for the weekend.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">We have specifically invited each kiddie, because we cannot imagine our wedding without them! In fact, we specifically decided to have our wedding over a school holiday weekend.<br><br>All kiddies, Grade 6 and younger, will stay free for the weekend. As far as entertainment goes, there will be a swimming pool and a dam to swim/row in, a jungle gym to climb on, grass patches to kick rugby balls around on, and trails to explore.</div></div>
       </div>
 
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
-          Where is wedding weekend taking place?
+          What about accommodation for the weekend?
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a"><div class="faq-a-inner">Everything happens at the stunning Pat Busch Mountain Reserve in Robertson, Western Cape. Think rolling mountains, fresh mountain air, and the most beautiful backdrop. The ceremony, reception, and accommodation are in one magical place for the whole weekend. No Ubers required! 🌿</div></div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Will there be on-site accommodation?
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a"><div class="faq-a-inner">Yes! We've reserved the entire Pat Busch Mountain Reserve exclusively for our wedding weekend. Every guest has been thoughtfully allocated a place to stay, and we'll be in touch with your specific accommodation details and cost. Your package covers your stay, the Friday evening braai, breakfast on Saturday and Sunday, and all the wedding celebrations and drinks on Saturday. Basically — just show up and enjoy! 🥂</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Yes! We have reserved the entire Pat Busch Mountain Reserve exclusively for our wedding weekend. Each guest has been thoughtfully allocated a place to stay, and we'll be in touch with your specific accommodation details and cost. The accommodation cost covers your stay, the Friday evening braai, breakfast on Saturday and Sunday, and all the wedding celebrations and drinks on Saturday.<br><br>Basically … just show up with some drinks for Friday night and a good vibe and enjoy! 🥂</div></div>
       </div>
 
       <div class="faq-item">
@@ -811,7 +836,7 @@ footer{background:var(--olive);color:var(--cream);text-align:center;padding:3rem
           What will the weather be like?
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a"><div class="faq-a-inner">October in Robertson is generally gorgeous — expect warm, sunny days with temperatures around 25–30°C. That said, evenings in the mountains can get quite cool, so a jersey or light jacket is a must, especially for after the sun goes down. The Friday braai and Saturday ceremony are both outdoors, so dress comfortably and come prepared for a beautiful mountain evening. 🌤️</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Winter lasts a bit longer in the Western Cape. We might be blessed with a warm and sunny weekend, but it's also very possible that it will be cool, especially early in the morning and later at night.<br><br>We will keep an eye out and let you know how the weather is looking closer to the time.<br><br>For the wedding day, we will have some firepits and gas heaters … but the recommended way to stay warm is to shake up the dancefloor!</div></div>
       </div>
 
       <div class="faq-item">
@@ -819,7 +844,7 @@ footer{background:var(--olive);color:var(--cream);text-align:center;padding:3rem
           How do the drinks work?
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a"><div class="faq-a-inner">Friday evening is BYO, so bring your favourites along for the braai! For Saturday, no need for wallets — we&#8217;ve got you covered with a generous selection of drinks throughout the evening. There&#8217;s no cash bar at any point during the weekend. P.S. There&#8217;s a Checkers close by, so no need to travel with it all! 🥂</div></div>
+        <div class="faq-a"><div class="faq-a-inner">There is no cash bar at Pat Busch, so we are bringing in all our favourites.<br><br>Please bring your own drinks for Friday night. (There is a Checkers nearby, so no need to travel with it all).<br><br>We have got you covered for Saturday with a selection of drinks (alcoholic and non-alcoholic) throughout the afternoon/evening.</div></div>
       </div>
 
     </div>
@@ -835,15 +860,27 @@ footer{background:var(--olive);color:var(--cream);text-align:center;padding:3rem
     <span class="ss">Your presence is the greatest gift of all.</span>
     <p class="ri">Your presence (no pun intended) at our wedding truly means the world to us, and we are so aware of the time, travel, and costs involved in celebrating with us. Please know that having you there is more than enough for us.</p>
     <p class="ri">If you would truly like to bless us with a contribution towards our future or a physical gift, we will share our banking details as well as a few meaningful items we love. That said, there is absolutely no expectation at all. Your love and presence are the greatest gifts we could ask for.</p>
-    <p class="ri" style="font-weight: bold;">We will be adding some links below with our registry items.</p>
     <!-- <div class="rc">
       <div class="rcard"><div class="ri2"></div><div class="rn">Woolworths</div><a href="#" class="vl">View List</a></div>
       <div class="rcard"><div class="ri2"></div><div class="rn">Yuppiechef</div><a href="#" class="vl">View List</a></div>
       <div class="rcard"><div class="ri2"></div><div class="rn">@Home</div><a href="#" class="vl">View List</a></div>
     </div> -->
     <div class="cg">
-      <h3>Or contribute directly</h3>
-      <div class="bd2">🏦 <strong>Isabel Venter</strong><br>Account: <strong>30 124 781 1</strong><br>Bank name: <strong>Standard Bank</strong><br>Branch Code: <strong>2342</strong><br>Reference: <em>Your Name – Gift</em></div>
+      <!-- wavy border -->
+      <svg class="cg-wave-svg top" width="100%" height="16" aria-hidden="true"><defs><pattern id="cwh" x="0" y="0" width="40" height="16" patternUnits="userSpaceOnUse"><path d="M0,8 Q10,3 20,8 Q30,13 40,8" stroke="#B73A49" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-opacity="0.45"/></pattern></defs><rect width="100%" height="16" fill="url(#cwh)"/></svg>
+      <svg class="cg-wave-svg bottom" width="100%" height="16" aria-hidden="true"><defs><pattern id="cwh2" x="0" y="0" width="40" height="16" patternUnits="userSpaceOnUse"><path d="M0,8 Q10,3 20,8 Q30,13 40,8" stroke="#B73A49" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-opacity="0.45"/></pattern></defs><rect width="100%" height="16" fill="url(#cwh2)"/></svg>
+      <svg class="cg-wave-svg left" width="16" height="100%" aria-hidden="true"><defs><pattern id="cwv" x="0" y="0" width="16" height="40" patternUnits="userSpaceOnUse"><path d="M8,0 Q3,10 8,20 Q13,30 8,40" stroke="#B73A49" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-opacity="0.45"/></pattern></defs><rect width="16" height="100%" fill="url(#cwv)"/></svg>
+      <svg class="cg-wave-svg right" width="16" height="100%" aria-hidden="true"><defs><pattern id="cwv2" x="0" y="0" width="16" height="40" patternUnits="userSpaceOnUse"><path d="M8,0 Q3,10 8,20 Q13,30 8,40" stroke="#B73A49" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-opacity="0.45"/></pattern></defs><rect width="16" height="100%" fill="url(#cwv2)"/></svg>
+      <h3>OUR BANKING DETAILS</h3>
+      <div class="bd2">
+        <table style="border-collapse:collapse;">
+          <tr><td style="padding:0.05rem 1.2rem 0.05rem 0;opacity:0.7;">Account name</td><td><strong>Isabel Venter</strong></td></tr>
+          <tr><td style="padding:0.05rem 1.2rem 0.05rem 0;opacity:0.7;">Account number</td><td><strong>30 124 781 1</strong></td></tr>
+          <tr><td style="padding:0.05rem 1.2rem 0.05rem 0;opacity:0.7;">Bank</td><td><strong>Standard Bank</strong></td></tr>
+          <tr><td style="padding:0.05rem 1.2rem 0.05rem 0;opacity:0.7;">Branch code</td><td><strong>2342</strong></td></tr>
+          <tr><td style="padding:0.05rem 1.2rem 0.05rem 0;opacity:0.7;">Reference</td><td><em>Your Name – Gift</em></td></tr>
+        </table>
+      </div>
     </div>
   </div>
 </section>
@@ -852,7 +889,7 @@ footer{background:var(--olive);color:var(--cream);text-align:center;padding:3rem
 
 <footer>
   <div class="fd" style="font-size: xxx-large;color: var(--cream);">Damion &amp; Isabel's</div>
-  <div class="fn2" style="font-size: xx-large;padding-top: -55;color: var(--cream);">Wedding weekend</div>
+  <div class="fn2" style="font-size: xx-large;padding-top: -55;color: var(--cream);letter-spacing:0.18em;">wedding weekend</div>
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
